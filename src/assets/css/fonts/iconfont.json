@@ -1,0 +1,37 @@
+{
+  "id": "2659103",
+  "name": "TabBar",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11474219",
+      "name": "all",
+      "font_class": "all",
+      "unicode": "e6ef",
+      "unicode_decimal": 59119
+    },
+    {
+      "icon_id": "11488003",
+      "name": "cart-Empty",
+      "font_class": "cart-Empty",
+      "unicode": "e747",
+      "unicode_decimal": 59207
+    },
+    {
+      "icon_id": "11674090",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e7a7",
+      "unicode_decimal": 59303
+    },
+    {
+      "icon_id": "13087849",
+      "name": "信息bar_账户",
+      "font_class": "xinxibar_zhanghu",
+      "unicode": "e7c8",
+      "unicode_decimal": 59336
+    }
+  ]
+}

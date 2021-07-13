@@ -6,3 +6,14 @@ export function getHomeMultidata() {
         url: '/api/index'
     })
 }
+
+export function getHomeGoodsdata(type, page) {
+    return request({
+        url: '/api/index',
+        //Query 请求参数  ?后面的
+        params: {
+            type,
+            page
+        }
+    })
+}

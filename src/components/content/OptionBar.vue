@@ -28,6 +28,7 @@ export default {
   methods: {
     itemClick(index) {
       this.isActive = index;
+      this.$emit("obClick", index);
     },
   },
 };

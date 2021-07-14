@@ -1,16 +1,17 @@
 <template>
   <div id="home">
-    <nav-bar class="home-nav">
-      <template v-slot:left>
-        <div>返回</div>
-      </template>
+    <nav-bar>
       <template v-slot:center>
-        <div>书城</div>
-      </template>
-      <template v-slot:right>
-        <div>登录</div>
+        <div>企鹅书城</div>
       </template>
     </nav-bar>
+    <option-bar
+      :titles="['促销', '精选', '上新']"
+      @obClick="obClick"
+      v-show="isShowOption"
+      :class="{ 'o-bar': isShowOption }"
+      ref="option1"
+    ></option-bar>
     <scroll
       class="content"
       ref="scroll"
@@ -28,6 +29,7 @@
       <option-bar
         :titles="['促销', '精选', '上新']"
         @obClick="obClick"
+        ref="option2"
       ></option-bar>
       <goods-list :goodslist="goods[isType].list"></goods-list>
     </scroll>
@@ -75,6 +77,7 @@ export default {
       goodsType: ["sales", "recommend", "new"],
       isType: "sales", //动态获取页面type
       isShowBackToTop: false, //控制显示隐藏
+      isShowOption: false, //控制显示隐藏
       // saveY: 0,
     };
   },
@@ -111,6 +114,8 @@ export default {
     obClick(index) {
       this.isType = this.goodsType[index];
       console.log(this.goodsType[index]);
+      this.$refs.option1.isActive = index; //解决同步问题
+      this.$refs.option2.isActive = index;
     },
     //接受scroll组件发生的自定义事件
     upClick() {
@@ -118,10 +123,12 @@ export default {
       this.$refs.scroll.scroll.scrollTo(0, 0);
     },
     scroll(position) {
-      if (position.y < -800) {
+      if (position.y < -530) {
         this.isShowBackToTop = true;
+        this.isShowOption = true;
       } else {
         this.isShowBackToTop = false;
+        this.isShowOption = false;
       }
     },
     pullUpLoad() {
@@ -141,10 +148,6 @@ export default {
 </script>
 
 <style scoped>
-.home-nav {
-  background-color: var(--color-tint);
-  color: #fff;
-}
 #home {
   position: relative;
   height: 100vh; /* vh视口宽度 */
@@ -162,5 +165,9 @@ export default {
   bottom: 66px;
   right: 16px;
   z-index: 6;
+}
+.o-bar {
+  position: absolute;
+  z-index: 9;
 }
 </style>

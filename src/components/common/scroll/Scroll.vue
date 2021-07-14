@@ -28,7 +28,18 @@ export default {
   },
   computed: {},
   watch: {},
-  methods: {},
+  methods: {
+    //防抖函数
+    debounce(func, delay) {
+      let timer = null;
+      return function (...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    },
+  },
   mounted() {
     //创建BetterScroll对象赋值给scroll存起来
     this.scroll = new BetterScroll(this.$refs.wrapper, {
@@ -40,8 +51,9 @@ export default {
     //侦听滚动的位置,然后把位置发出去
     this.scroll.on("scroll", (position) => {
       this.$emit("scroll", position);
-      // //每次滚动获取位置时顺带更新可滚动的高度
+      // //每次滚动获取位置时顺带更新可滚动的高度,由于过于频繁，加入防抖函数处理
       this.scroll.refresh();
+      // this.debounce(this.scroll.refresh, 2);
     });
     //侦听上拉加载事件，把事件发出去
     this.scroll.on("pullingUp", () => {

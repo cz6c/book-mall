@@ -26,6 +26,9 @@ export default {
   line-height: 44px;
   text-align: center;
   box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+  background-color: #ff6a00;
+  color: #fff;
+  font-size: 18px;
 }
 .left .right {
   width: 60px;

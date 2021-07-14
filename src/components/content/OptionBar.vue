@@ -51,9 +51,9 @@ export default {
   padding: 10px;
 }
 .active {
-  color: red;
+  color: #ff6a00;
 }
 .active span {
-  border-bottom: solid 2px red;
+  border-bottom: solid 2px #ff6a00;
 }
 </style>

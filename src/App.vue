@@ -5,12 +5,11 @@
     </keep-alive> -->
 
     <router-view v-slot="{ Component }">
-      <keep-alive>
+      <keep-alive exclude="Detail">
         <component :is="Component" />
       </keep-alive>
     </router-view>
-
-    <main-tab-bar></main-tab-bar>
+    <main-tab-bar v-if="$store.state.isDetail"></main-tab-bar>
   </div>
 </template>
 

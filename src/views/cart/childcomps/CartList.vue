@@ -2,14 +2,17 @@
   <div class="cart-list">
     <ul>
       <li v-for="item in $store.state.cartList" :key="item" class="item">
-        <span class="icon" @click="selClick"></span>
-        <img :src="item.img" alt="" />
+        <span
+          class="icon"
+          @click="selClick(item)"
+          :class="{ sel: item.check, unsel: !item.check }"
+        ></span>
+        <img v-lazy="item.img" alt="" />
         <span class="title">{{ item.title }}</span>
         <span class="price">￥{{ item.price }}</span>
         <el-input-number
           v-model="item.count"
           controls-position="right"
-          @change="handleChange"
           :min="1"
           size="mini"
           class="count"
@@ -28,10 +31,9 @@ export default {
   computed: {},
   watch: {},
   methods: {
-    handleChange() {
-      console.log(123);
+    selClick(item) {
+      item.check = !item.check;
     },
-    selClick() {},
   },
 };
 </script>
@@ -49,10 +51,16 @@ export default {
   top: 50%;
   transform: translateY(-80%);
   left: 20px;
-  background: url(~assets/img/Unselected.png);
-  background-size: 30px;
-  width: 30px;
-  height: 30px;
+  width: 31px;
+  height: 31px;
+}
+.unsel {
+  background: url(~assets/img/unsel.png);
+  background-size: 31px;
+}
+.sel {
+  background: url(~assets/img/sel.png);
+  background-size: 31px;
 }
 .item img {
   margin-left: 50px;

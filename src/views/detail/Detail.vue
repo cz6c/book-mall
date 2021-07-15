@@ -1,12 +1,13 @@
 <template>
   <div class="detail">
     <detail-nav-bar></detail-nav-bar>
-    <el-image :src="goods.cover_url"> </el-image>
-    <p>{{ goods.title }}</p>
+    <img v-lazy="goods.cover_url" class="img" />
+    <h4>{{ goods.title }}</h4>
     <p>{{ goods.description }}</p>
-    <p>￥{{ goods.price }}</p>
+    <span class="price">￥{{ goods.price }}</span>
+    <h3>书籍简介</h3>
     <p v-html="goods.details"></p>
-    <detail-bottom-bar @cartClick="addcart"></detail-bottom-bar>时
+    <detail-bottom-bar @cartClick="addcart"></detail-bottom-bar>
   </div>
 </template>
 
@@ -37,7 +38,9 @@ export default {
       product.id = this.id;
 
       //把商品加入购物车
-      this.$store.dispatch("addCart", product);
+      this.$store.dispatch("addCart", product).then((res) => {
+        this.$toast.success(res);
+      });
     },
   },
   created() {
@@ -56,6 +59,31 @@ export default {
   position: relative;
   height: 100vh;
   z-index: 100;
-  background-color: #ff6a00;
+  font-size: 14px;
+}
+.img {
+  margin: 50px 0;
+  border-bottom: solid 1px #e6e6e6;
+}
+h4 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+p {
+  margin-left: 8px;
+}
+h3 {
+  margin: 60px;
+  text-align: center;
+  height: 40px;
+  background-color: #e6e6e6;
+  line-height: 40px;
+}
+.price {
+  position: absolute;
+  right: 36px;
+  top: 506px;
+  color: red;
+  font-size: 20px;
 }
 </style>

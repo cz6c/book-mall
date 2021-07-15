@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list-item" @click="itemClick">
-    <img :src="goodslistitem.cover_url" alt="" />
+    <img v-lazy="goodslistitem.cover_url" alt="" />
     <div class="info">
       <p>{{ goodslistitem.description }}</p>
       <span class="price">￥{{ goodslistitem.price }}</span>
@@ -23,8 +23,6 @@ export default {
   methods: {
     itemClick() {
       this.$router.push("/detail/" + this.goodslistitem.id);
-      //点击跳转时隐藏tabbar
-      this.$store.commit("getIsDetall");
     },
   },
 };

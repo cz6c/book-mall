@@ -1,9 +1,15 @@
 <template>
   <div class="cart-bar">
-    <span class="icon"></span>
+    <span
+      class="icon"
+      :class="{ sel: $store.getters.checkAll, unsel: !$store.getters.checkAll }"
+      @click="allClick"
+    ></span>
     <span class="all">全选</span>
-    <span class="total">合计:￥1234</span>
-    <el-button type="danger" round class="fr">结算</el-button>
+    <span class="total">合计:￥{{ $store.getters.tolta }}</span>
+    <el-button type="danger" round class="fr"
+      >结算 {{ $store.getters.checkCount }}</el-button
+    >
   </div>
 </template>
 
@@ -11,11 +17,25 @@
 export default {
   name: "",
   data() {
-    return {};
+    return {
+      // isAll: true,
+    };
   },
   computed: {},
   watch: {},
-  methods: {},
+  methods: {
+    allClick() {
+      //先判断是否有商品，无商品点击不会反应
+      //有商品先判断商品是否全选，不是全新点击后全选
+      //否则点击后取消全选
+      if (this.$store.state.cartList.length === 0) {
+      } else if (this.$store.getters.checkAll === false) {
+        this.$store.state.cartList.forEach((item) => (item.check = true));
+      } else {
+        this.$store.state.cartList.forEach((item) => (item.check = false));
+      }
+    },
+  },
 };
 </script>
 
@@ -36,8 +56,6 @@ export default {
   top: 50%;
   transform: translateY(-50%);
   left: 0px;
-  background: url(~assets/img/Unselected.png);
-  background-size: 30px;
   width: 30px;
   height: 30px;
 }
@@ -45,5 +63,13 @@ export default {
   position: absolute;
   top: 4px;
   right: 12px;
+}
+.unsel {
+  background: url(~assets/img/unsel.png);
+  background-size: 31px;
+}
+.sel {
+  background: url(~assets/img/sel.png);
+  background-size: 31px;
 }
 </style>

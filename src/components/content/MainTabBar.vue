@@ -44,7 +44,7 @@ export default {
   name: "",
   data() {
     return {
-      isColor: "#ff6a00", //这个变量由客户决定颜色
+      isColor: "#409eff", //这个变量由客户决定颜色
     };
   },
   computed: {},

@@ -22,7 +22,7 @@
     >
       <el-carousel height="300px">
         <el-carousel-item v-for="item in banners.slice(0, 3)" :key="item">
-          <img :src="item.img_url" alt="" />
+          <img v-lazy="item.img_url" alt="" />
         </el-carousel-item>
       </el-carousel>
       <home-recommend :recommends="recommends"></home-recommend>

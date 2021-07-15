@@ -25,7 +25,7 @@ export default {
   name: "",
   data() {
     return {
-      title: ["商品", "参数", "评论", "推荐"],
+      title: ["详情", "评论", "推荐"],
       isActive: 0,
     };
   },
@@ -34,8 +34,6 @@ export default {
   methods: {
     backClick() {
       this.$router.push("/home");
-      //退出详情页时显示tabbar
-      this.$store.commit("getBackDetall");
     },
     itemClick(index) {
       this.isActive = index;
@@ -46,7 +44,12 @@ export default {
 
 <style scoped>
 .nav-bar {
-  background-color: #333;
+  position: fixed;
+  top: 0;
+  background-color: #409eff;
+  font-size: 16px;
+  font-weight: 400;
+  z-index: 200;
 }
 .item {
   margin: 0 10px;
@@ -55,7 +58,8 @@ export default {
   color: red;
 }
 .el-icon-arrow-left {
-  font-size: 20px;
+  font-size: 26px;
   padding-left: 10px;
+  line-height: 43px;
 }
 </style>

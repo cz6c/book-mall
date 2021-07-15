@@ -6,11 +6,10 @@
         class="recommend-item"
         v-for="item in recommends.slice(0, 4)"
         :key="item"
+        @click="itemClick(item)"
       >
-        <a href="">
-          <img :src="item.cover_url" alt="" />
-          <h5>{{ item.title }}</h5>
-        </a>
+        <img v-lazy="item.cover_url" alt="" />
+        <h5>{{ item.title }}</h5>
       </div>
     </div>
   </div>
@@ -27,7 +26,11 @@ export default {
   },
   computed: {},
   watch: {},
-  methods: {},
+  methods: {
+    itemClick(item) {
+      this.$router.push("/detail/" + item.id);
+    },
+  },
 };
 </script>
 

@@ -2,20 +2,18 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
-        cartList: []
+        cartList: [],
+        isToken: false //控制登录权限
     },
     mutations: {
-        getIsDetall(state) {
-            state.isDetail = false
-        },
-        getBackDetall(state) {
-            state.isDetail = true
-        },
         addCount(state, oldProduct) {
             oldProduct.count++ //已存在就给商品数量加1
         },
         addProduct(state, payload) {
             state.cartList.push(payload) //不存在的商品push到数组中
+        },
+        getIsToken(state, payload) {
+            state.isToken = payload
         }
     },
     actions: { //

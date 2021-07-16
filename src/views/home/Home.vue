@@ -25,6 +25,7 @@
           <img v-lazy="item.img_url" alt="" />
         </el-carousel-item>
       </el-carousel>
+
       <home-recommend :recommends="recommends"></home-recommend>
       <option-bar
         :titles="['促销', '精选', '上新']"
@@ -105,8 +106,10 @@ export default {
         this.goods[type].list.push(...res.goods.data);
         this.goods[type].page += 1; //请求完数据后把page自加1，下次请求就是从page+1页
 
-        // 完成上拉加载更多
+        // 完成上拉加载更多调用finishPullUp()表示上拉完成可进行下次下拉
         this.$refs.scroll.scroll && this.$refs.scroll.scroll.finishPullUp();
+        //重新计算高度
+        this.$refs.scroll.scroll.refresh();
       });
     },
 

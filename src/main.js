@@ -13,12 +13,18 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
 //引入vant库
-import { Toast, Lazyload } from 'vant';
+import { Toast, Lazyload, Form, Field, Button, Icon, } from 'vant';
 import 'vant/lib/index.css';
 
-createApp(App).use(store).use(router).use(ElementPlus).use(Toast).use(Lazyload, {
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(ElementPlus)
+    .use(Toast)
+    .use(Form)
+    .use(Field)
+    .use(Button)
+    .use(Icon)
+    .use(Lazyload, {
         loading: require('./assets/img/cz6.png')
     }).mount('#app')
-    // Vue.use(Swipe);
-    // Vue.use(SwipeItem);
-    // Vue.use(Lazyload);

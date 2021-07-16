@@ -1,12 +1,14 @@
 <template>
   <div class="detail">
     <detail-nav-bar></detail-nav-bar>
-    <img v-lazy="goods.cover_url" class="img" />
-    <h4>{{ goods.title }}</h4>
-    <p>{{ goods.description }}</p>
-    <span class="price">￥{{ goods.price }}</span>
-    <h3>书籍简介</h3>
-    <p v-html="goods.details"></p>
+    <scroll class="content">
+      <img v-lazy="goods.cover_url" class="img" />
+      <h4>{{ goods.title }}</h4>
+      <p>{{ goods.description }}</p>
+      <span class="price">￥{{ goods.price }}</span>
+      <h3>书籍简介</h3>
+      <p v-html="goods.details"></p>
+    </scroll>
     <detail-bottom-bar @cartClick="addcart"></detail-bottom-bar>
   </div>
 </template>
@@ -16,9 +18,10 @@ import detailNavBar from "./childcomps/detailNavBar.vue";
 
 import { getDetaildata } from "network/detail.js";
 import DetailBottomBar from "./childcomps/DetailBottomBar.vue";
+import Scroll from "components/common/scroll/Scroll.vue";
 
 export default {
-  components: { detailNavBar, DetailBottomBar },
+  components: { detailNavBar, DetailBottomBar, Scroll },
   name: "Detail",
   data() {
     return {
@@ -60,6 +63,14 @@ export default {
   height: 100vh;
   z-index: 100;
   font-size: 14px;
+}
+.content {
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
 }
 .img {
   margin: 50px 0;

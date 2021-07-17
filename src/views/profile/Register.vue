@@ -71,7 +71,6 @@ export default {
       register(values).then((res) => {
         if (res.status == 201) {
           Toast.success("注册成功");
-          console.log("注册成功");
           setTimeout(() => {
             this.$router.push("/Login");
           }, 1000);

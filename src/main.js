@@ -13,7 +13,16 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
 //引入vant库
-import { Toast, Lazyload, Form, Field, Button, Icon, } from 'vant';
+import {
+    Toast,
+    Lazyload,
+    Form,
+    Field,
+    Button,
+    Icon,
+    AddressList,
+    AddressEdit
+} from 'vant';
 import 'vant/lib/index.css';
 
 createApp(App)
@@ -25,6 +34,8 @@ createApp(App)
     .use(Field)
     .use(Button)
     .use(Icon)
+    .use(AddressList)
+    .use(AddressEdit)
     .use(Lazyload, {
         loading: require('./assets/img/cz6.png')
     }).mount('#app')

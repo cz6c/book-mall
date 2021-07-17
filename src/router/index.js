@@ -42,6 +42,42 @@ const routes = [{
         component: () =>
             import ('../views/profile/Login')
     },
+    {
+        path: '/about',
+        component: () =>
+            import ('../views/profile/childcomps/About')
+    },
+    {
+        path: '/account',
+        component: () =>
+            import ('../views/profile/childcomps/Account')
+    },
+    {
+        path: '/address',
+        component: () =>
+            import ('../views/profile/childcomps/address/Address')
+    },
+    {
+        path: '/addressedit/:id',
+        component: () =>
+            import ('../views/profile/childcomps/address/AddressEdit')
+    },
+    {
+        path: '/addressadd',
+        component: () =>
+            import ('../views/profile/childcomps/address/AddressAdd')
+    },
+    {
+        path: '/collection',
+        component: () =>
+            import ('../views/profile/childcomps/Collection')
+    },
+    {
+        path: '/order',
+        component: () =>
+            import ('../views/profile/childcomps/Order')
+    },
+
 ]
 
 const router = createRouter({

@@ -7,16 +7,26 @@
     </nav-bar>
     <div class="me">
       <img src="~assets/img/log.png" alt="" />
-      <div class="name">昵称：</div>
-      <div class="loginname">用户名：</div>
+      <div class="name">昵称：{{ user.name }}</div>
+      <div class="loginname">用户名：{{ user.email }}</div>
     </div>
     <div class="list">
       <ul>
-        <li>我的收藏<van-icon name="arrow" /></li>
-        <li>我的订单<van-icon name="arrow" /></li>
-        <li>账号管理<van-icon name="arrow" /></li>
-        <li>地址管理<van-icon name="arrow" /></li>
-        <li>关于我们<van-icon name="arrow" /></li>
+        <li @click="$router.push('/collection')">
+          我的收藏<van-icon name="arrow" />
+        </li>
+        <li @click="$router.push('/order')">
+          我的订单<van-icon name="arrow" />
+        </li>
+        <li @click="$router.push('/account')">
+          账号管理<van-icon name="arrow" />
+        </li>
+        <li @click="$router.push('/address')">
+          地址管理<van-icon name="arrow" />
+        </li>
+        <li @click="$router.push('/about')">
+          关于我们<van-icon name="arrow" />
+        </li>
       </ul>
     </div>
     <van-button type="primary" round block @click="logoutClick"
@@ -26,21 +36,24 @@
 </template>
 
 <script>
-import { logout } from "network/user";
+import { logout, getuser } from "network/user";
 import NavBar from "components/common/navbar/NavBar";
+import { Toast } from "vant";
 
 export default {
   name: "",
   components: { NavBar },
   data() {
-    return {};
+    return {
+      user: {},
+    };
   },
   computed: {},
   watch: {},
   methods: {
     logoutClick() {
       logout().then((res) => {
-        console.log("退出成功");
+        Toast.success("退出成功");
         //清除token
         // window.localStorage.setItem("token", "");
         window.localStorage.removeItem("token");
@@ -52,6 +65,11 @@ export default {
         }, 500);
       });
     },
+  },
+  created() {
+    getuser().then((res) => {
+      this.user = res;
+    });
   },
 };
 </script>

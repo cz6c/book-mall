@@ -58,11 +58,10 @@ export default {
         window.localStorage.setItem("token", res.access_token);
         //更改vuex 中istoken的状态为true
         this.$store.commit("getIsToken", true);
-        console.log("登录成功");
         Toast.success("登录成功");
         //随后跳转到上一页
         setTimeout(() => {
-          this.$router.go(-1);
+          this.$router.push("/profile");
         }, 500);
       });
     },

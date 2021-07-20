@@ -2,7 +2,7 @@
   <tab-bar>
     <tab-bar-item path="/home" :isColor="isColor">
       <template v-slot:item-icon>
-        <span class="iconfont icon-home"></span>
+        <van-icon name="wap-home-o" />
       </template>
       <template v-slot:item-text>
         <div>首页</div>
@@ -10,7 +10,7 @@
     </tab-bar-item>
     <tab-bar-item path="/category" :isColor="isColor">
       <template v-slot:item-icon>
-        <span class="iconfont icon-all"></span>
+        <van-icon name="apps-o" />
       </template>
       <template v-slot:item-text>
         <div>品类</div>
@@ -18,7 +18,7 @@
     </tab-bar-item>
     <tab-bar-item path="/cart" :isColor="isColor">
       <template v-slot:item-icon>
-        <span class="iconfont icon-cart-Empty"></span>
+        <van-icon name="shopping-cart-o" />
       </template>
       <template v-slot:item-text>
         <div>购物车</div>
@@ -26,7 +26,7 @@
     </tab-bar-item>
     <tab-bar-item path="/profile" :isColor="isColor">
       <template v-slot:item-icon>
-        <span class="iconfont icon-xinxibar_zhanghu"></span>
+        <van-icon name="contact" />
       </template>
       <template v-slot:item-text>
         <div>我的</div>
@@ -58,7 +58,8 @@ export default {
 </script>
 
 <style scoped>
-.iconfont {
+.van-icon {
   font-size: 26px;
+  margin: 3px 0;
 }
 </style>

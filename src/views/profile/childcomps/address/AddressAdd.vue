@@ -1,6 +1,9 @@
 <template>
-  <div>
+  <div class="add">
     <nav-bar>
+      <template v-slot:left
+        ><span @click="backClick" class="el-icon-arrow-left"></span
+      ></template>
       <template v-slot:center>
         <div>新增地址</div>
       </template>
@@ -51,10 +54,24 @@ export default {
         this.$router.push("/address");
       });
     },
+    backClick() {
+      this.$router.go(-1);
+    },
   },
-  created() {},
 };
 </script>
 
 <style scoped>
+.add {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 9;
+  background-color: #fff;
+}
+.el-icon-arrow-left {
+  font-size: 26px;
+  padding-left: 10px;
+  line-height: 43px;
+}
 </style>

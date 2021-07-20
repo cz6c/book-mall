@@ -21,7 +21,8 @@ import {
     Button,
     Icon,
     AddressList,
-    AddressEdit
+    AddressEdit,
+    SubmitBar
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -36,6 +37,7 @@ createApp(App)
     .use(Icon)
     .use(AddressList)
     .use(AddressEdit)
+    .use(SubmitBar)
     .use(Lazyload, {
         loading: require('./assets/img/cz6.png')
     }).mount('#app')

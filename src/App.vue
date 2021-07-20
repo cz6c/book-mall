@@ -16,6 +16,15 @@
 import MainTabBar from "./components/content/MainTabBar.vue";
 export default {
   components: { MainTabBar },
+  //拿取存在本地缓存中vuex的sate
+  mounted() {
+    window.addEventListener("unload", this.saveState);
+  },
+  methods: {
+    saveState() {
+      sessionStorage.setItem("state", JSON.stringify(this.$store.state));
+    },
+  },
 };
 </script>
- 
+  

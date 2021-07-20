@@ -54,7 +54,7 @@ export default {
     logoutClick() {
       logout().then((res) => {
         Toast.success("退出成功");
-        //清除token
+        //清除本地缓存中的token
         // window.localStorage.setItem("token", "");
         window.localStorage.removeItem("token");
         //并更改vuex中istoken的状态为false

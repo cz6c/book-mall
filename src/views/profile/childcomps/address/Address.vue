@@ -1,6 +1,9 @@
 <template>
   <div>
     <nav-bar>
+      <template v-slot:left
+        ><span @click="backClick" class="el-icon-arrow-left"></span
+      ></template>
       <template v-slot:center>
         <div>地址管理</div>
       </template>
@@ -8,7 +11,6 @@
     <van-address-list
       v-model="chosenAddressId"
       :list="list"
-      :disabled-list="disabledList"
       default-tag-text="默认"
       @add="onAdd"
       @edit="onEdit"
@@ -27,7 +29,7 @@ export default {
   components: { NavBar },
   data() {
     return {
-      chosenAddressId: "1",
+      chosenAddressId: "",
       list: [],
     };
   },
@@ -42,6 +44,9 @@ export default {
       Toast("编辑地址");
       router.push("/addressedit/" + item.id);
     },
+    backClick() {
+      router.go(-1);
+    },
   },
   created() {
     addressList().then((res) => {
@@ -52,13 +57,22 @@ export default {
           name: item.name,
           tel: item.phone,
           address: item.address,
-          isDefault: item.is_default,
+          isDefault: !!item.is_default,
         };
       });
+      //默认勾选默认地址
+      this.chosenAddressId = this.list.filter((item) => {
+        return item.isDefault == true;
+      })[0].id;
     });
   },
 };
 </script>
 
 <style scoped>
+.el-icon-arrow-left {
+  font-size: 26px;
+  padding-left: 10px;
+  line-height: 43px;
+}
 </style>

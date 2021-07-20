@@ -75,7 +75,12 @@ const routes = [{
     {
         path: '/order',
         component: () =>
-            import ('../views/profile/childcomps/Order')
+            import ('../views/profile/childcomps/order/Order')
+    },
+    {
+        path: '/settlement',
+        component: () =>
+            import ('../views/profile/childcomps/order/Settlement')
     },
 
 ]

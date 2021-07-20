@@ -7,7 +7,7 @@
     ></span>
     <span class="all">全选</span>
     <span class="total">合计:￥{{ $store.getters.tolta }}</span>
-    <el-button type="danger" round class="fr"
+    <el-button type="danger" round class="fr" @click="Settlement"
       >结算 {{ $store.getters.checkCount }}</el-button
     >
   </div>
@@ -26,13 +26,23 @@ export default {
   methods: {
     allClick() {
       //先判断是否有商品，无商品点击不会反应
-      //有商品先判断商品是否全选，不是全新点击后全选
+      //有商品先判断商品是否全选，不是全选点击后全选
       //否则点击后取消全选
       if (this.$store.state.cartList.length === 0) {
       } else if (this.$store.getters.checkAll === false) {
         this.$store.state.cartList.forEach((item) => (item.check = true));
       } else {
         this.$store.state.cartList.forEach((item) => (item.check = false));
+      }
+    },
+    Settlement() {
+      let arr = this.$store.state.cartList.filter((item) => {
+        return item.check == true;
+      });
+      if (arr.length == 0) {
+        this.$toast.fail("结算书籍数量为空");
+      } else {
+        this.$router.push("/settlement");
       }
     },
   },

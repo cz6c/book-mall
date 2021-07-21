@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <detail-nav-bar></detail-nav-bar>
-    <scroll class="content">
+    <scroll class="content" ref="scroll">
       <img v-lazy="goods.cover_url" class="img" />
       <h4>{{ goods.title }}</h4>
       <p>{{ goods.description }}</p>
@@ -9,7 +9,7 @@
       <h3>书籍简介</h3>
       <p v-html="goods.details"></p>
     </scroll>
-    <detail-bottom-bar @cartClick="addcart"></detail-bottom-bar>
+    <detail-bottom-bar @cartClick="addcart" :id="id"></detail-bottom-bar>
   </div>
 </template>
 

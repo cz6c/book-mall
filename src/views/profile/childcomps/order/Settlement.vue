@@ -39,6 +39,7 @@
 import { Toast } from "vant";
 import NavBar from "components/common/navbar/NavBar";
 import { addressList } from "network/address";
+import { setOrder } from "network/order";
 
 export default {
   components: { NavBar },
@@ -49,6 +50,7 @@ export default {
     };
   },
   computed: {
+    //计算订单总价格
     AllPrice() {
       return this.list.reduce((prevalue, item) => {
         return (prevalue += item.price * item.count);
@@ -64,7 +66,11 @@ export default {
       this.$router.go(-1);
     },
     onSubmit() {
+      console.log(this.defaultAddress[0].id);
       Toast("抱歉，支付功能待完善");
+      setOrder(this.defaultAddress[0].id).then((res) => {
+        console.log(res);
+      });
     },
   },
   created() {
@@ -78,6 +84,7 @@ export default {
           name: item.name,
           tel: item.phone,
           address: item.city + item.province + item.county + item.address,
+          id: item.id,
         };
       });
     });

@@ -22,7 +22,11 @@ import {
     Icon,
     AddressList,
     AddressEdit,
-    SubmitBar
+    SubmitBar,
+    SwipeCell,
+    Card,
+    Tab,
+    Tabs,
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -38,6 +42,10 @@ createApp(App)
     .use(AddressList)
     .use(AddressEdit)
     .use(SubmitBar)
+    .use(SwipeCell)
+    .use(Card)
+    .use(Tab)
+    .use(Tabs)
     .use(Lazyload, {
         loading: require('./assets/img/cz6.png')
     }).mount('#app')

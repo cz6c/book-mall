@@ -33,7 +33,7 @@ export default {
   watch: {},
   methods: {
     backClick() {
-      this.$router.push("/home");
+      this.$router.go(-1);
     },
     itemClick(index) {
       this.isActive = index;

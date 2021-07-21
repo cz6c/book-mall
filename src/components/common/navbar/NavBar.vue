@@ -32,7 +32,7 @@ export default {
   font-weight: 700;
 }
 .left .right {
-  width: 60px;
+  width: 30px;
 }
 .center {
   flex: 1;

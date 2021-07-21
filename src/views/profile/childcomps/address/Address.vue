@@ -71,8 +71,8 @@ export default {
 
 <style scoped>
 .el-icon-arrow-left {
-  font-size: 26px;
-  padding-left: 10px;
+  font-size: 20px;
+  padding-left: 8px;
   line-height: 43px;
 }
 </style>

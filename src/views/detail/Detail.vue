@@ -1,14 +1,13 @@
 <template>
   <div class="detail">
-    <detail-nav-bar></detail-nav-bar>
-    <scroll class="content" ref="scroll">
-      <img v-lazy="goods.cover_url" class="img" />
-      <h4>{{ goods.title }}</h4>
-      <p>{{ goods.description }}</p>
-      <span class="price">￥{{ goods.price }}</span>
-      <h3>书籍简介</h3>
-      <p v-html="goods.details"></p>
-    </scroll>
+    <detail-nav-bar class="detail-nav-bar"></detail-nav-bar>
+    <img v-lazy="goods.cover_url" class="img" />
+    <h4>{{ goods.title }}</h4>
+    <p>{{ goods.description }}</p>
+    <span class="price">￥{{ goods.price }}</span>
+    <h3>书籍简介</h3>
+    <p v-html="goods.details"></p>
+    <div class="bottom"></div>
     <detail-bottom-bar @cartClick="addcart" :id="id"></detail-bottom-bar>
   </div>
 </template>
@@ -18,10 +17,9 @@ import detailNavBar from "./childcomps/detailNavBar.vue";
 
 import { getDetaildata } from "network/detail.js";
 import DetailBottomBar from "./childcomps/DetailBottomBar.vue";
-import Scroll from "components/common/scroll/Scroll.vue";
 
 export default {
-  components: { detailNavBar, DetailBottomBar, Scroll },
+  components: { detailNavBar, DetailBottomBar },
   name: "Detail",
   data() {
     return {
@@ -60,20 +58,15 @@ export default {
 <style scoped>
 .detail {
   position: relative;
+  width: 100%;
   height: 100vh;
   z-index: 100;
   font-size: 14px;
 }
-.content {
-  position: absolute;
-  top: 44px;
-  bottom: 49px;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-}
 .img {
-  margin: 50px 0;
+  width: 100%;
+  height: 360px;
+  margin: 36px 0;
   border-bottom: solid 1px #e6e6e6;
 }
 h4 {
@@ -84,7 +77,7 @@ p {
   margin-left: 8px;
 }
 h3 {
-  margin: 60px;
+  margin: 60px 0;
   text-align: center;
   height: 40px;
   background-color: #e6e6e6;
@@ -93,8 +86,18 @@ h3 {
 .price {
   position: absolute;
   right: 36px;
-  top: 506px;
+  top: 460px;
   color: red;
   font-size: 20px;
+}
+.detail-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.bottom {
+  width: 100%;
+  height: 80px;
 }
 </style>

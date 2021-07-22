@@ -61,9 +61,12 @@ export default {
         };
       });
       //默认勾选默认地址
-      this.chosenAddressId = this.list.filter((item) => {
+      const arr = this.list.filter((item) => {
         return item.isDefault == true;
-      })[0].id;
+      });
+      if (arr[0]) {
+        this.chosenAddressId = arr[0].id;
+      }
     });
   },
 };

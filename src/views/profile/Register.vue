@@ -84,16 +84,16 @@ export default {
 <style scoped>
 .log {
   position: relative;
-  padding: 55px;
+  padding: 86px;
 }
 .log img {
-  width: 260px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
 }
 .log span {
   position: absolute;
-  top: 30px;
+  top: 36px;
   left: 130px;
   color: #5fa4e8;
   font-size: 20px;

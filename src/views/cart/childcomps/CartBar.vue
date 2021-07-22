@@ -40,9 +40,9 @@ export default {
         return item.check == true;
       });
       if (arr.length == 0) {
-        this.$toast.fail("结算书籍数量为空");
+        this.$toast.fail("结算为空");
       } else {
-        this.$router.push("/settlement");
+        this.$toast.fail("暂不支持订单支付");
       }
     },
   },

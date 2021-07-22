@@ -18,7 +18,6 @@
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
-import { orderList } from "network/order";
 
 export default {
   name: "",
@@ -34,12 +33,6 @@ export default {
     backClick() {
       this.$router.go(-1);
     },
-    getorderList() {},
-  },
-  created() {
-    orderList().then((res) => {
-      console.log(res);
-    });
   },
 };
 </script>

@@ -77,11 +77,7 @@ const routes = [{
         component: () =>
             import ('../views/profile/childcomps/order/Order')
     },
-    {
-        path: '/settlement',
-        component: () =>
-            import ('../views/profile/childcomps/order/Settlement')
-    },
+
 
 ]
 

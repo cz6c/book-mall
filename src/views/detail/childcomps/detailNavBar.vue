@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar class="nav-bar">
+    <nav-bar>
       <template v-slot:left
         ><span @click="backClick" class="el-icon-arrow-left"></span
       ></template>
@@ -25,8 +25,8 @@ export default {
   name: "",
   data() {
     return {
-      title: ["详情", "评论", "推荐"],
-      isActive: 0,
+      title: ["详情"],
+      isActive: 1,
     };
   },
   computed: {},
@@ -43,14 +43,6 @@ export default {
 </script>
 
 <style scoped>
-.nav-bar {
-  position: fixed;
-  top: 0;
-  background-color: #409eff;
-  font-size: 16px;
-  font-weight: 400;
-  z-index: 200;
-}
 .item {
   margin: 0 10px;
 }

@@ -18,7 +18,7 @@ export default {
 .back-to-top {
   width: 50px;
   height: 50px;
-  background-color: #ff6a00;
+  background-color: #1989fa;
   border-radius: 50%;
   text-align: center;
   line-height: 50px;

@@ -12,11 +12,12 @@
 <script>
 import { Toast } from "vant";
 import { collection, collects } from "network/collection";
+import { addCart } from "network/cart";
 
 export default {
   name: "",
   props: {
-    id: {},
+    id: 0,
   },
   data() {
     return {
@@ -27,7 +28,9 @@ export default {
   watch: {},
   methods: {
     cartClick() {
-      this.$emit("cartClick");
+      addCart({ goods_id: this.id }).then((res) => {
+        Toast("加入购物车成功");
+      });
     },
     getCollection() {
       collection(this.id).then((res) => {
@@ -70,16 +73,16 @@ export default {
 }
 .bar div {
   width: 80px;
-  background-color: #fff;
+  /* background-color: #fff; */
   text-align: center;
 }
 .bar div span {
-  color: #666;
+  color: #fff;
   margin-left: 8px;
 }
 .van-icon {
   font-size: 22px;
-  color: #e6e6e6;
+  color: #fff;
 }
 .active {
   color: red;

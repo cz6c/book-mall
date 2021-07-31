@@ -76,7 +76,12 @@ const routes = [{
         path: '/order',
         component: () =>
             import ('../views/profile/childcomps/order/Order')
+    }, {
+        path: '/preview',
+        component: () =>
+            import ('../views/profile/childcomps/order/Preview')
     },
+
 
 
 ]

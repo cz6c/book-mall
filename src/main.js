@@ -27,6 +27,10 @@ import {
     Card,
     Tab,
     Tabs,
+    Checkbox,
+    CheckboxGroup,
+    Stepper,
+    Popup
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -46,6 +50,10 @@ createApp(App)
     .use(Card)
     .use(Tab)
     .use(Tabs)
+    .use(Checkbox)
+    .use(CheckboxGroup)
+    .use(Stepper)
+    .use(Popup)
     .use(Lazyload, {
         loading: require('./assets/img/cz6.png')
     }).mount('#app')

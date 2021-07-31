@@ -47,8 +47,8 @@ export default {
   components: { NavBar },
   data() {
     return {
-      password: "",
-      email: "",
+      password: "123456",
+      email: "2436944246@qq.com",
     };
   },
   methods: {

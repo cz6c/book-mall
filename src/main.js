@@ -30,7 +30,9 @@ import {
     Checkbox,
     CheckboxGroup,
     Stepper,
-    Popup
+    Popup,
+    List,
+    PullRefresh
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -54,6 +56,8 @@ createApp(App)
     .use(CheckboxGroup)
     .use(Stepper)
     .use(Popup)
+    .use(List)
+    .use(PullRefresh)
     .use(Lazyload, {
         loading: require('./assets/img/cz6.png')
     }).mount('#app')

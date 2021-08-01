@@ -9,11 +9,9 @@ export function getHomeMultidata() {
 
 export function getHomeGoodsdata(type, page) {
     return request({
-        url: '/api/index',
-        //Query 请求参数  ?后面的
-        params: {
-            type,
-            page
-        }
+        //当传的参数的参数名本身就是个变量时
+        //不建议用params对象的形式传，应该传变量过来手动拼接
+        url: '/api/index?' + type + '=1&page=' + page,
     })
+
 }

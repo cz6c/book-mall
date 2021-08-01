@@ -24,8 +24,9 @@ export function orderDetails(id) {
 }
 
 //订单列表
-export function orderList() {
+export function orderList(params) {
     return request({
-        url: '/api/orders'
+        url: '/api/orders?include=orderDetails.goods',
+        params
     })
 }

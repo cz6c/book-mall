@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <nav-bar>
+    <nav-bar class="nav-bar">
       <template v-slot:center>
         <div>企鹅书城</div>
       </template>
@@ -12,28 +12,32 @@
       :class="{ 'o-bar': isShowOption }"
       ref="option1"
     ></option-bar>
-    <scroll
-      class="content"
-      ref="scroll"
-      :probe-type="3"
-      @scroll="scroll"
-      :pull-upLoad="true"
-      @pullUpLoad="pullUpLoad"
-    >
-      <el-carousel height="300px">
-        <el-carousel-item v-for="item in banners.slice(0, 3)" :key="item">
-          <img v-lazy="item.img_url" alt="" />
-        </el-carousel-item>
-      </el-carousel>
-
-      <home-recommend :recommends="recommends"></home-recommend>
-      <option-bar
-        :titles="['促销', '精选', '上新']"
-        @obClick="obClick"
-        ref="option2"
-      ></option-bar>
-      <goods-list :goodslist="goods[isType].list"></goods-list>
-    </scroll>
+    <!-- 轮播图 -->
+    <el-carousel height="300px">
+      <el-carousel-item v-for="item in banners.slice(0, 3)" :key="item">
+        <img v-lazy="item.img_url" alt="" />
+      </el-carousel-item>
+    </el-carousel>
+    <!-- 推荐 -->
+    <home-recommend :recommends="recommends"></home-recommend>
+    <!-- 选项卡 -->
+    <option-bar
+      :titles="['促销', '精选', '上新']"
+      @obClick="obClick"
+      ref="option2"
+    ></option-bar>
+    <!-- 商品列表 -->
+    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <goods-list :goodslist="list"></goods-list>
+      </van-list>
+    </van-pull-refresh>
+    <!-- 回到顶部 -->
     <back-to-top
       class="up"
       @click.native="upClick"
@@ -48,7 +52,6 @@
 import NavBar from "components/common/navbar/NavBar";
 import OptionBar from "components/content/OptionBar.vue";
 import GoodsList from "components/content/goods/GoodsList.vue";
-import Scroll from "components/common/scroll/Scroll.vue";
 import BackToTop from "components/content/BackToTop.vue";
 //子组件
 import HomeRecommend from "./childcomponents/HomeRecommend.vue";
@@ -61,7 +64,6 @@ export default {
     HomeRecommend,
     OptionBar,
     GoodsList,
-    Scroll,
     BackToTop,
   },
   name: "",
@@ -69,26 +71,20 @@ export default {
     return {
       banners: [],
       recommends: [],
-      goods: {
-        //数据模型
-        sales: { page: 0, list: [] },
-        recommend: { page: 0, list: [] },
-        new: { page: 0, list: [] },
-      },
+
       goodsType: ["sales", "recommend", "new"],
       isType: "sales", //动态获取页面type
       isShowBackToTop: false, //控制显示隐藏
       isShowOption: false, //控制显示隐藏
-      // saveY: 0,
+
+      list: [], //列表数据
+      page: 1, //页数
+      total_pages: 0, //总页数
+      loading: false, //控制是否触发上拉加载
+      finished: false, //控制开启关闭上拉加载模式
+      refreshing: false, //控制下拉刷新
     };
   },
-  // keep alive 的钩子函数
-  // activated() {
-  //   this.$refs.scroll.scroll.scrollTo(0, this.saveY, 0);
-  // },
-  // deactivated() {
-  //   this.saveY = this.$refs.scroll.scroll.y;
-  // },
   methods: {
     //主要数据请求封装
     getHomeMultidata() {
@@ -98,54 +94,90 @@ export default {
         this.recommends = res.goods.data;
       });
     },
-
-    //商品分页数据封装
-    getHomeGoodsdata(type) {
-      const page = this.goods[type].page + 1; //请求数据前定义一个变量拿到当前page后加1，就去请求下一页数据
-      getHomeGoodsdata(type, page).then((res) => {
-        this.goods[type].list.push(...res.goods.data);
-        this.goods[type].page += 1; //请求完数据后把page自加1，下次请求就是从page+1页
-
-        // 完成上拉加载更多调用finishPullUp()表示上拉完成可进行下次下拉
-        this.$refs.scroll.scroll && this.$refs.scroll.scroll.finishPullUp();
-        //重新计算高度
-        this.$refs.scroll.scroll.refresh();
-      });
-    },
-
     //事件函数
     obClick(index) {
       this.isType = this.goodsType[index];
       console.log(this.goodsType[index]);
       this.$refs.option1.isActive = index; //解决同步问题
       this.$refs.option2.isActive = index;
+      //改变状态
+      //刷新数据
+      this.refreshing = true;
+      this.onRefresh();
     },
-    //接受scroll组件发生的自定义事件
     upClick() {
-      //通过ref拿到scroll组件，再拿到组件的scroll对象，调用它的scrollTo方法回到顶部
-      this.$refs.scroll.scroll.scrollTo(0, 0);
+      window.scroll(0, 0);
     },
-    scroll(position) {
-      if (position.y < -530) {
-        this.isShowBackToTop = true;
-        this.isShowOption = true;
-      } else {
-        this.isShowBackToTop = false;
-        this.isShowOption = false;
+
+    //下拉刷新初始化
+    onRefresh() {
+      // 开启加载模式
+      this.finished = false;
+      // 关闭上拉加载的触发
+      this.loading = true;
+      //把页面初始化到1
+      this.page = 1;
+      //获取列表数据
+      this.init();
+    },
+
+    //上拉加载
+    onLoad() {
+      //页数加1
+      if (this.page < this.total_pages) {
+        this.page++;
+        this.init();
       }
     },
-    pullUpLoad() {
-      //接收下拉事件获取下一页数据
-      this.getHomeGoodsdata(this.isType);
+
+    //获取列表数据
+    init() {
+      //请求数据
+      getHomeGoodsdata(this.isType, this.page).then((res) => {
+        //下拉刷新开启时，把列表数据赋值空，关闭下拉刷新
+        if (this.refreshing) {
+          this.list = [];
+          this.refreshing = false;
+        }
+        //把上次请求和本次请求的两数组合并到一个数组
+        this.list = this.list.concat(res.goods.data);
+        //列表重新赋值后开启上拉加载的触发
+        this.loading = false;
+        //如果加载的页数已经超过总页数时关闭加载模式
+        this.total_pages = res.goods.to;
+        if (this.page >= this.total_pages) {
+          this.finished = true;
+        }
+      });
+    },
+
+    handleScroll() {
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      if (scrollTop >= 480) {
+        this.isShowOption = true;
+        this.isShowBackToTop = true;
+      }
+      if (scrollTop < 480) {
+        this.isShowOption = false;
+        this.isShowBackToTop = false;
+      }
     },
   },
   created() {
     //请求主要数据
     this.getHomeMultidata(); //把具体请求函数封装到methods里去，这样结构更清晰
     //请求商品分页数据
-    this.getHomeGoodsdata("sales");
-    this.getHomeGoodsdata("recommend");
-    this.getHomeGoodsdata("new");
+    this.onRefresh();
+  },
+  //
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
@@ -155,22 +187,20 @@ export default {
   position: relative;
   height: 100vh; /* vh视口宽度 */
 }
-.content {
-  position: absolute;
-  top: 44px;
-  bottom: 49px;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-}
 .up {
-  position: absolute;
+  position: fixed;
   bottom: 66px;
   right: 16px;
   z-index: 6;
 }
 .o-bar {
-  position: absolute;
+  position: fixed;
+  top: 44px;
   z-index: 9;
+}
+.nav-bar {
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 </style>

@@ -9,8 +9,9 @@ export function collection(id) {
 }
 
 //收藏列表
-export function collects() {
+export function collects(params) {
     return request({
         url: '/api/collects',
+        params
     })
 }

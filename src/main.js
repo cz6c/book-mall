@@ -32,7 +32,11 @@ import {
     Stepper,
     Popup,
     List,
-    PullRefresh
+    PullRefresh,
+    Col,
+    Row,
+    Sidebar,
+    SidebarItem,
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -58,6 +62,10 @@ createApp(App)
     .use(Popup)
     .use(List)
     .use(PullRefresh)
+    .use(Col)
+    .use(Row)
+    .use(Sidebar)
+    .use(SidebarItem)
     .use(Lazyload, {
         loading: require('./assets/img/cz6.png')
     }).mount('#app')

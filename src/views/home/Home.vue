@@ -203,4 +203,7 @@ export default {
   top: 0;
   z-index: 100;
 }
+.el-carousel {
+  margin-top: 44px;
+}
 </style>
